@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 header {
 	display: flex;
@@ -68,14 +69,14 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+	cursor: default;
 }
 
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -84,18 +85,24 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
-nav ul {
+nav {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
 
 }
-nav li {
+nav a {
 	padding: 0 10px;
 	font-size: 1.2em;
+	color: black;
+	text-decoration: none;
 }
 
-li:hover {
+nav a.bold {
+	font-weight: 600;
+}
+
+nav a:hover {
 	color: #B1663C;
 }
 #introduction {
@@ -126,7 +133,6 @@ li:hover {
 	margin-bottom: 1em;
 }
 
-/* CSS ajouté */
 .filters {
 	display: flex;
 	justify-content: center;
@@ -153,7 +159,6 @@ button.active {
 	color: white;
 	background-color:#1D6154;
 }
-/* Fin */
 
 .gallery {
 	width: 100%;
@@ -167,31 +172,36 @@ button.active {
 	width: 100%;
 
 }
-#contact {
+#contact,
+#login {
 	width: 50%;
 margin: auto;
 }
-#contact > * {
+#contact > *,
+#login > * {
 	text-align: center;
 
 }
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form,
+#login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+#contact label,
+#login label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -207,12 +217,30 @@ input[type="submit"]{
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+#login a {
+	display: flex;
+	color: #3D3D3D;
+	justify-content: center;
+}
+
+#login p {
+	position: absolute;
+	top: 425px;
+	color: #A30016;
+	font-weight: 600;
 }
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
+footer.bottom {
+	position: absolute;
+	bottom: 0;
+}
