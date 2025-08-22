@@ -1,3 +1,5 @@
+import openModal from "./modal.js"
+
 function createEditMode() {
     // Création des éléments
     const editBar = document.createElement("div")
@@ -30,5 +32,10 @@ export default function initEditMode(works) {
     logButton.addEventListener("click", () => {
         localStorage.removeItem("token")
         window.location.reload()
+    })
+    
+    // Ouverture de la modale
+    editButton.addEventListener("click", () => {
+        openModal(works)
     })
 }
