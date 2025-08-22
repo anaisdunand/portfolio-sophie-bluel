@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, button {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -48,17 +48,36 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	background-color: #FFFEF8;
 }
+
+.edit-bar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+	gap: 14px;
+	background-color: black;
+	color: white;
+	padding: 22px 0;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	max-width: 1140px;
+	padding: 50px 0;
+	margin: 0 auto;
 }
+
+main {
+	max-width: 950px;
+	margin: auto;
+}
+
 section {
 	margin: 50px 0
 }
@@ -79,12 +98,25 @@ h1 > span {
 	letter-spacing: 0.1em;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
 }
+
+.edit-button {
+	display: flex;
+	align-items: flex-end;
+	gap: 13px;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-weight: 400;
+	background-color: transparent;
+	margin-right: -118px;
+	cursor: pointer;
+}
+
 nav {
 	display: flex;
 	align-items: center;
@@ -92,6 +124,8 @@ nav {
 
 }
 nav a {
+	display: flex;
+	align-items: center;
 	padding: 0 10px;
 	font-size: 1.2em;
 	color: black;
@@ -108,14 +142,14 @@ nav a:hover {
 #introduction {
 	display: flex;
 	align-items: center;
+	gap: 72px;
 }
 #introduction figure {
 	flex: 1
 }
 #introduction img {
 	display: block;
-	margin: auto;
-	width: 80%;
+	width: 100%;
 }
 
 #introduction article {
@@ -130,7 +164,10 @@ nav a:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 32px;
 }
 
 .filters {
@@ -168,10 +205,11 @@ button.active {
 	grid-row-gap: 20px;
 }
 
-.gallery img {
+.gallery img,
+.modal-gallery img {
 	width: 100%;
-
 }
+
 #contact,
 #login {
 	width: 50%;
@@ -187,6 +225,7 @@ margin: auto;
 }
 #contact form,
 #login form {
+	position: relative;
 	text-align: left;
 	margin-top:30px;
 	display: flex;
@@ -209,16 +248,101 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin : 2em auto;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
+}
+
+#edit-mode {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .3)
+}
+
+#edit-mode.hidden {
+	display: none;
+}
+
+#edit-mode .modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+	width: 630px;
+	border-radius: 10px;
+	padding: 26px;
+}
+
+.modal .close-button {
+	display: flex;
+	align-self: flex-end;
+	width: 24px;
+	height: 24px;
+	background-color: white;
+	cursor: pointer;
+}
+
+.button img {
+	object-fit: cover;
+}
+
+.modal h3 {
+	font-size: 26px;
+	margin-top: 12px;
+}
+
+.modal-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 77px);
+	grid-gap: 30px 10px;
+	padding: 46px 0 66px;
+	border-bottom: 1px solid #B3B3B3;
+}
+
+.modal-gallery figure {
+	position: relative;
+}
+
+.modal-gallery button {
+	position: absolute;
+	top: 6px;
+	right: 5px;
+	width: 17px;
+	height: 17px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.add-button,
+.modal input[type="submit"] {
+	width: 237px;
+	height: 36px;
+	background-color: #1D6154;
+	color: white;
+	font-family: 'Syne';
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+	border: none;
+	border-radius: 60px;
+	margin: 38px 0 19px;
+	cursor: pointer;
+}
+
+.modal input[type="submit"].grey {
+	color: #B3B3B3;
 }
 
 #login a {
@@ -229,18 +353,28 @@ input[type="submit"]{
 
 #login p {
 	position: absolute;
-	top: 425px;
+	bottom: 96px;
 	color: #A30016;
 	font-weight: 600;
 }
 
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em;
+footer {
+	width: 100%;
+	background-color: white;
 }
 
 footer.bottom {
 	position: absolute;
 	bottom: 0;
+}
+
+footer nav {
+	max-width: 1140px;
+	margin: auto;
+	display: flex;
+	justify-content: flex-end;
+}
+
+footer nav ul {
+	margin: 2em;
 }
