@@ -27,7 +27,6 @@ export const closingElements = [closeButton, modalBackground]
 export const uploadButton = document.querySelector(".upload-box label")
 export const imageInput = document.querySelector(".upload-box input")
 export const imagePreview = document.querySelector(".upload-box img")
-export const uploadHint = document.querySelector(".upload-box p")
 
 export const titleInput = document.querySelector(`.content input[type="text"]`)
 export const categorySelect = document.querySelector(".content select")

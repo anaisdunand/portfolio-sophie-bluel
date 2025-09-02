@@ -1,6 +1,6 @@
 import {
     modalBackground, modalTitle, modalContent, modalForm, backButton, // éléments de la modale
-    uploadButton, imageInput, imagePreview, uploadHint, titleInput, categorySelect, submitButton // éléments du formulaire de la modale
+    uploadButton, imageInput, imagePreview, titleInput, categorySelect, submitButton // éléments du formulaire de la modale
 } from "../../../dom-elements.js"
 import { deleteRequest, postRequest } from "../../../api.js"
 import { addWorkToGalleries } from "../gallery.js"
@@ -33,6 +33,8 @@ export async function deleteImage(id) {
         // Supprimer du DOM toutes les figures portant cet id
         const figures = document.querySelectorAll(`figure[data-id="${id}"]`)
         figures.forEach(figure => figure.remove())
+
+        showMessage("Photo supprimée avec succès !", "success")
     }
 }
 
@@ -49,7 +51,9 @@ export function showImagePreview() {
         uploadButton.classList.add("hidden")
     } else {
         imageInput.value = ""
-        uploadHint.classList.add("error")
+
+        if (image.size > maxSize) showMessage("Image trop volumineuse !", "error")
+        else if (!allowedTypes.includes(image.type)) showMessage("Ce type de fichier n'est pas accepté.", "error")
     }
 }
 
@@ -77,6 +81,7 @@ export async function sendForm() {
         const newWork = await postResponse.json()
         addWorkToGalleries(newWork)
 
+        showMessage("Photo ajoutée avec succès !", "success")
         resetForm()
     }
 }
@@ -99,5 +104,15 @@ function resetForm() {
     imagePreview.src = ""
     imagePreview.classList.add("hidden")
     uploadButton.classList.remove("hidden")
-    uploadHint.classList.remove("error")
+}
+
+function showMessage(text, status) {
+    const message = document.createElement("p")
+    message.innerText = text
+    message.classList.add("flash-message", status)
+
+    modalTitle.after(message)
+
+    // Disparition au bout de 3 secondes
+    setTimeout(() => message.remove(), 3000)
 }
