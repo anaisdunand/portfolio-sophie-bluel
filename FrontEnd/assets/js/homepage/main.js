@@ -1,24 +1,17 @@
-import initGallery from "./functions/gallery.js"
-import createFilters from "./functions/filters.js"
-import initEditMode from "./functions/admin.js"
+import { getRequest, getToken } from "../api.js"
+import { initGallery } from "./functions/gallery.js"
+import initAdminPage from "./functions/admin/index.js"
+import initFilters from "./functions/filters.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // Récupération des projets
-    const worksResponse = await fetch("http://localhost:5678/api/works")
-    const works = await worksResponse.json()
-
-    // Récupération des catégories
-    const categoriesResponse = await fetch("http://localhost:5678/api/categories")
-    const categories = await categoriesResponse.json()
+    const works = await getRequest("works")
+    const categories = await getRequest("categories")
 
     initGallery(works, "homepage")
 
     // Vérification de la connexion de l'utilisateur
-    const token = localStorage.getItem("token")
-
-    if (token) {
-        initEditMode(works)
-    } else {
-        createFilters(categories, works)
-    }
+    const token = getToken()
+    
+    if (token) initAdminPage(works, categories)
+    else initFilters(categories, works)
 })
